@@ -16,6 +16,7 @@ config_store = modal.Dict.from_name("openwebui-config", create_if_missing=True)
     image=openwebui_image,
     volumes={"/openwebui-storage": data_volume},
     allow_concurrent_inputs=100,
+    memory=1024,
 )
 @modal.web_server(port=WEBUI_PORT, startup_timeout=180)
 def serve():
@@ -53,6 +54,8 @@ def serve():
         "0.0.0.0",
         "--port",
         str(WEBUI_PORT),
+        "--workers",
+        "4",
     ]
 
     print(f"Starting with: {' '.join(cmd)}")
