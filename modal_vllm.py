@@ -184,7 +184,7 @@ def get_web_app():
     return web_app
 
 
-@app.function(image=gateway_image, secrets=[get_api_token_secret()])
+@app.function(image=gateway_image, region=["eu"], secrets=[get_api_token_secret()])
 @modal.asgi_app()
 def gateway():
     return get_web_app()
@@ -192,6 +192,7 @@ def gateway():
 
 @app.cls(
     image=vllm_image,
+    region=["eu"],
     gpu=f"L40S:{N_GPU}",
     scaledown_window=2 * MINUTES,
     timeout=10 * MINUTES,

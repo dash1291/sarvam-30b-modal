@@ -14,6 +14,7 @@ config_store = modal.Dict.from_name("openwebui-config", create_if_missing=True)
 
 @app.function(
     image=openwebui_image,
+    region=["eu"],
     volumes={"/openwebui-storage": data_volume},
     allow_concurrent_inputs=100,
     memory=1024,
